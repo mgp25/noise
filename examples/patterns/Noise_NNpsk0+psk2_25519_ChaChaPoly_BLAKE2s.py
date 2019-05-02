@@ -1,19 +1,19 @@
 """
 This following demonstrates a Noise_NNpsk0+psk2_25519_ChaChaPoly_BLAKE2s handshake and initial transport messages.
 """
-from dissononce.processing.impl.handshakestate import HandshakeState
-from dissononce.processing.impl.symmetricstate import SymmetricState
-from dissononce.processing.impl.cipherstate import CipherState
-from dissononce.processing.handshakepatterns.interactive.NN import NNHandshakePattern
-from dissononce.processing.modifiers.psk import PSKPatternModifier
-from dissononce.cipher.chachapoly import ChaChaPolyCipher
-from dissononce.dh.x25519.x25519 import X25519DH
-from dissononce.hash.blake2s import Blake2sHash
-import dissononce, logging
+from noise.processing.impl.handshakestate import HandshakeState
+from noise.processing.impl.symmetricstate import SymmetricState
+from noise.processing.impl.cipherstate import CipherState
+from noise.processing.handshakepatterns.interactive.NN import NNHandshakePattern
+from noise.processing.modifiers.psk import PSKPatternModifier
+from noise.cipher.chachapoly import ChaChaPolyCipher
+from noise.dh.x25519.x25519 import X25519DH
+from noise.hash.blake2s import Blake2sHash
+import noise, logging
 import os
 
 if __name__ == "__main__":
-    dissononce.logger.setLevel(logging.DEBUG)
+    noise.logger.setLevel(logging.DEBUG)
     # setup initiator and responder variables
     alice_s = X25519DH().generate_keypair()
     bob_s = X25519DH().generate_keypair()

@@ -3,22 +3,22 @@ The following demonstrates a Noise_IK_25519_AESGCM_SHA256 that fails during hand
 switch to Noise_XXfallback_25519_AESGCM_SHA256. In this example a SwitchableHandshakeState will be used to carry over
 necessary handshakestate variables to next HandshakePattern.
 """
-from dissononce.processing.impl.handshakestate import HandshakeState
-from dissononce.extras.processing.handshakestate_switchable import SwitchableHandshakeState
-from dissononce.processing.impl.symmetricstate import SymmetricState
-from dissononce.processing.impl.cipherstate import CipherState
-from dissononce.processing.handshakepatterns.interactive.XX import XXHandshakePattern
-from dissononce.processing.handshakepatterns.interactive.IK import IKHandshakePattern
-from dissononce.processing.modifiers.fallback import FallbackPatternModifier
-from dissononce.cipher.aesgcm import AESGCMCipher
-from dissononce.dh.x25519.x25519 import X25519DH
-from dissononce.hash.sha256 import SHA256Hash
-from dissononce.exceptions.decrypt import DecryptFailedException
-import dissononce, logging
+from noise.processing.impl.handshakestate import HandshakeState
+from noise.extras.processing.handshakestate_switchable import SwitchableHandshakeState
+from noise.processing.impl.symmetricstate import SymmetricState
+from noise.processing.impl.cipherstate import CipherState
+from noise.processing.handshakepatterns.interactive.XX import XXHandshakePattern
+from noise.processing.handshakepatterns.interactive.IK import IKHandshakePattern
+from noise.processing.modifiers.fallback import FallbackPatternModifier
+from noise.cipher.aesgcm import AESGCMCipher
+from noise.dh.x25519.x25519 import X25519DH
+from noise.hash.sha256 import SHA256Hash
+from noise.exceptions.decrypt import DecryptFailedException
+import noise, logging
 
 
 if __name__ == "__main__":
-    dissononce.logger.setLevel(logging.DEBUG)
+    noise.logger.setLevel(logging.DEBUG)
     # setup initiator and responder variables
     alice_s = X25519DH().generate_keypair()
     alice_rs = X25519DH().generate_keypair().public

@@ -1,9 +1,6 @@
-# Dissononce 
+# Noise
 
-[![Build Status](https://travis-ci.org/tgalal/dissononce.svg?branch=master)](https://travis-ci.org/tgalal/dissononce)
-[![PyPI](https://img.shields.io/pypi/v/dissononce.svg)](https://pypi.python.org/pypi/dissononce)
-
-Dissononce is a python implementation for [Noise Protocol Framework](https://noiseprotocol.org/).
+Noise is a python implementation for [Noise Protocol Framework](https://noiseprotocol.org/).
 A main goal of this project is to provide a simple, easy to read and understand practical reference for
 Noise enthusiasts, implementers and users. Therefore this project attempts to stick to the following guidelines:
 
@@ -17,7 +14,7 @@ implementation/API and are optional to use.
 
 ## META-INF
 ```
-dissononce version: 0.34.3
+noise version: 0.34.3
 noise revision: 34
 released: 2019-04-24
 requires:
@@ -56,7 +53,7 @@ python setup.py install
 ```
 Using Pip:
 ```
-pip install dissononce
+pip install noise
 ```
 
 ## Usage
@@ -66,16 +63,16 @@ pip install dissononce
 Each set of Crypto functions (DH, Cipher, Hash) is enclosed inside an own base class, where an implementation subclasses
 that base class to implement the methods.
 
-- DH-functions base class: ```dissononce.dh.dh.DH```
-- Cipher-functions base class: ```dissononce.cipher.cipher.Cipher```
-- Hash-functions base class: ```dissononce.hash.hash.Hash```
+- DH-functions base class: ```noise.dh.dh.DH```
+- Cipher-functions base class: ```noise.cipher.cipher.Cipher```
+- Hash-functions base class: ```noise.hash.hash.Hash```
 
 Example instantiating objects for X25519 ```DH```, AESGCM ```Cipher``` and SHA256 ```Hash```:
 
 ```python
-from dissononce.cipher.aesgcm import AESGCMCipher
-from dissononce.dh.x25519.x25519 import X25519DH
-from dissononce.hash.sha256 import SHA256Hash
+from noise.cipher.aesgcm import AESGCMCipher
+from noise.dh.x25519.x25519 import X25519DH
+from noise.hash.sha256 import SHA256Hash
 
 cipher = AESGCMCipher()
 dh = X25519DH()
@@ -85,17 +82,17 @@ hash = SHA256Hash()
 Implementations for each set of crypto functions are organized according to their support level:
 
 - **stable:** officially covered in Noise spec, accessible under:
-  - [dissononce/dh/](dissononce/dh)
-  - [dissononce/cipher/](dissononce/cipher)
-  - [dissononce/hash/](dissononce/hash)
+  - [noise/dh/](noise/dh)
+  - [noise/cipher/](noise/cipher)
+  - [noise/hash/](noise/hash)
 - **experimental:** recognized by Noise community, not officially covered in Noise spec or endorsed by it, found under:
-  - [dissononce/extras/dh/experimental/](dissononce/extras/dh/experimental/)
-  - [dissononce/extras/cipher/experimental/](dissononce/extras/cipher/experimental/)
-  - [dissononce/extras/hash/experimental/](dissononce/extras/hash/experimental/)
+  - [noise/extras/dh/experimental/](noise/extras/dh/experimental/)
+  - [noise/extras/cipher/experimental/](noise/extras/cipher/experimental/)
+  - [noise/extras/hash/experimental/](noise/extras/hash/experimental/)
 - **dangerous:** a monkey might have written those, **just don't use**:
-  - [dissononce/extras/dh/dangerous/](dissononce/extras/dh/dangerous/)
-  - [dissononce/extras/cipher/dangerous/](dissononce/extras/cipher/dangerous/)
-  - [dissononce/extras/hash/dangerous/](dissononce/extras/hash/dangerous/)
+  - [noise/extras/dh/dangerous/](noise/extras/dh/dangerous/)
+  - [noise/extras/cipher/dangerous/](noise/extras/cipher/dangerous/)
+  - [noise/extras/hash/dangerous/](noise/extras/hash/dangerous/)
 
 See [Appendices](#appendices) for available Crypto functions.
 
@@ -109,12 +106,12 @@ where Crypto-functions dependencies are also to be instantiated before passing t
 - A ```HandshakeState``` requires a ```SymmetricState``` and a ```DH``` object.
 
 ```python
-from dissononce.processing.impl.handshakestate import HandshakeState
-from dissononce.processing.impl.symmetricstate import SymmetricState
-from dissononce.processing.impl.cipherstate import CipherState
-from dissononce.cipher.chachapoly import ChaChaPolyCipher
-from dissononce.dh.x448.x448 import X448DH
-from dissononce.hash.sha512 import SHA512Hash
+from noise.processing.impl.handshakestate import HandshakeState
+from noise.processing.impl.symmetricstate import SymmetricState
+from noise.processing.impl.cipherstate import CipherState
+from noise.cipher.chachapoly import ChaChaPolyCipher
+from noise.dh.x448.x448 import X448DH
+from noise.hash.sha512 import SHA512Hash
 
 
 handshakestate = HandshakeState(
@@ -140,7 +137,7 @@ described in Noise spec.
 - responder_pre_message_pattern is a tuple of tokens
 
 ```python
-from dissononce.processing.handshakepatterns.handshakepattern import HandshakePattern
+from noise.processing.handshakepatterns.handshakepattern import HandshakePattern
 
 k1k1 = HandshakePattern(
       name='K1K1',
@@ -177,8 +174,8 @@ message and premessage patterns
 
 
 ```python
-from dissononce.processing.modifiers.fallback import FallbackPatternModifier
-from dissononce.processing.handshakepatterns.interactive.XX import XXHandshakePattern
+from noise.processing.modifiers.fallback import FallbackPatternModifier
+from noise.processing.handshakepatterns.interactive.XX import XXHandshakePattern
 
 
 xx = XXHandshakePattern()
@@ -197,8 +194,8 @@ XXfallback:
 **PSK**
 
 ```python
-from dissononce.processing.modifiers.psk import PSKPatternModifier
-from dissononce.processing.handshakepatterns.interactive.NN import NNHandshakePattern
+from noise.processing.modifiers.psk import PSKPatternModifier
+from noise.processing.handshakepatterns.interactive.NN import NNHandshakePattern
 
 
 nn = NNHandshakePattern()
@@ -239,9 +236,9 @@ As an alternative to directly instantiating the Crypto-functions objects, they c
 a factory designated to each type of Crypto-functions:
 
 ```python
-from dissononce.extras.meta.hash.factory import HashFactory
-from dissononce.extras.meta.dh.factory import DHFactory
-from dissononce.extras.meta.cipher.factory import CipherFactory
+from noise.extras.meta.hash.factory import HashFactory
+from noise.extras.meta.dh.factory import DHFactory
+from noise.extras.meta.cipher.factory import CipherFactory
 
 
 cipher = CipherFactory().get_cipher('AESGCM')
@@ -267,7 +264,7 @@ instances of ```DH```, ```Cipher```, ```Hash```, ```HandshakePattern```, and exp
 ```CipherState```, ```SymmetricState```, and ```HandshakeState```.
 
 ```python
-from dissononce.extras.meta.protocol.factory import NoiseProtocolFactory
+from noise.extras.meta.protocol.factory import NoiseProtocolFactory
 
 protocol = NoiseProtocolFactory().get_noise_protocol('Noise_XX_25519_AESGCM_SHA256')
 handshakestate = protocol.create_handshakestate()
@@ -279,7 +276,7 @@ Note that creating by name supports stable/official algorithms only at the momen
 #### processing: GuardedHandshakeState
 
 ```python
-from dissononce.extras.processing.handshakestate_guarded import GuardedHandshakeState
+from noise.extras.processing.handshakestate_guarded import GuardedHandshakeState
 
 guarded = GuardedHandshakeState(handshakestate)
 guarded.read_message(b'', bytearray())
@@ -297,10 +294,10 @@ result in an AssertionError getting raised.
 #### processing: SwitchableHandshakeState
 
 ```python
-from dissononce.extras.processing.handshakestate_switchable import SwitchableHandshakeState
-from dissononce.processing.handshakepatterns.interactive.XX import XXHandshakePattern
-from dissononce.processing.modifiers.fallback import FallbackPatternModifier
-from dissononce.extras.meta.protocol.factory import NoiseProtocolFactory
+from noise.extras.processing.handshakestate_switchable import SwitchableHandshakeState
+from noise.processing.handshakepatterns.interactive.XX import XXHandshakePattern
+from noise.processing.modifiers.fallback import FallbackPatternModifier
+from noise.extras.meta.protocol.factory import NoiseProtocolFactory
 
 protocol = NoiseProtocolFactory().get_noise_protocol('Noise_IK_25519_AESGCM_SHA256')
 switchable = SwitchableHandshakeState(protocol.create_handshakestate())
@@ -338,17 +335,17 @@ there are 2 Test Vectors files:
 
 ## Logging
 
-Enable debug-level logging for a detailed insight of a handshake process. The debug output syntax and formatting is 
-intended to be as close as possible to the language used in Noise specs. This might be useful for when using dissononce 
+Enable debug-level logging for a detailed insight of a handshake process. The debug output syntax and formatting is
+intended to be as close as possible to the language used in Noise specs. This might be useful for when using noise
 as a reference implementation where one wants to understand what's going on internally and to easily relate to
 Noise specs.
 
 ```
->>> import dissononce, logging
->>> dissononce.logger.setLevel(logging.DEBUG)
+>>> import noise, logging
+>>> noise.logger.setLevel(logging.DEBUG)
 >>> handshakestate.initialize(XXHandshakePattern(), True, b'', X448DH().generate_keypair())
 
-I dissononce.processing.impl.handshakestate - Derived Noise Protocol name Noise_XX_448_ChaChaPoly_SHA512
+I noise.processing.impl.handshakestate - Derived Noise Protocol name Noise_XX_448_ChaChaPoly_SHA512
 XX:
   -> e
   <- e, ee, s, es
@@ -356,12 +353,12 @@ XX:
 
 >>> handshakestate.write_message(b'',bytearray())
 
-I dissononce.processing.impl.handshakestate - WriteMessage(payload, message_buffer)
-D dissononce.processing.impl.handshakestate -     Processing token 'e'
-D dissononce.processing.impl.handshakestate -         e=GENERATE_KEYPAIR()
-D dissononce.processing.impl.handshakestate -         message_buffer.append(e.public_key)
-D dissononce.processing.impl.handshakestate -         MixHash(e.public_key)
-D dissononce.processing.impl.handshakestate -     buffer.append(EncryptAndHash(payload))
+I noise.processing.impl.handshakestate - WriteMessage(payload, message_buffer)
+D noise.processing.impl.handshakestate -     Processing token 'e'
+D noise.processing.impl.handshakestate -         e=GENERATE_KEYPAIR()
+D noise.processing.impl.handshakestate -         message_buffer.append(e.public_key)
+D noise.processing.impl.handshakestate -         MixHash(e.public_key)
+D noise.processing.impl.handshakestate -     buffer.append(EncryptAndHash(payload))
 ```
 
 ## Appendices
@@ -370,68 +367,68 @@ D dissononce.processing.impl.handshakestate -     buffer.append(EncryptAndHash(p
 
 Stable:
 
-- [AESGCM](dissononce/cipher/aesgcm.py)
-- [ChaChaPoly](dissononce/cipher/chachapoly.py)
- 
+- [AESGCM](noise/cipher/aesgcm.py)
+- [ChaChaPoly](noise/cipher/chachapoly.py)
+
 ### Hash functions
 
 Stable:
 
-- [Blake2b](dissononce/hash/blake2b.py)
-- [Blake2s](dissononce/hash/blake2s.py)
-- [SHA256](dissononce/hash/sha256.py)
-- [SHA512](dissononce/hash/sha512.py)
+- [Blake2b](noise/hash/blake2b.py)
+- [Blake2s](noise/hash/blake2s.py)
+- [SHA256](noise/hash/sha256.py)
+- [SHA512](noise/hash/sha512.py)
 
 ### DH functions
 
 Stable:
 
-- [x448](dissononce/dh/x448/x448.py)
-- [x25519](dissononce/dh/x25519/x25519.py)
+- [x448](noise/dh/x448/x448.py)
+- [x25519](noise/dh/x25519/x25519.py)
 
 ### Handshake Patterns
 
 Interactive:
 
-- [IK](dissononce/processing/handshakepatterns/interactive/IK.py), [IN](dissononce/processing/handshakepatterns/interactive/IN.py), [IX](dissononce/processing/handshakepatterns/interactive/IX.py)
-- [KK](dissononce/processing/handshakepatterns/interactive/KK.py), [KN](dissononce/processing/handshakepatterns/interactive/KN.py), [KX](dissononce/processing/handshakepatterns/interactive/KX.py)
-- [NK](dissononce/processing/handshakepatterns/interactive/NK.py), [NN](dissononce/processing/handshakepatterns/interactive/NN.py), [NX](dissononce/processing/handshakepatterns/interactive/NX.py)
-- [XK](dissononce/processing/handshakepatterns/interactive/XK.py), [XN](dissononce/processing/handshakepatterns/interactive/XN.py), [XX](dissononce/processing/handshakepatterns/interactive/XX.py)
+- [IK](noise/processing/handshakepatterns/interactive/IK.py), [IN](noise/processing/handshakepatterns/interactive/IN.py), [IX](noise/processing/handshakepatterns/interactive/IX.py)
+- [KK](noise/processing/handshakepatterns/interactive/KK.py), [KN](noise/processing/handshakepatterns/interactive/KN.py), [KX](noise/processing/handshakepatterns/interactive/KX.py)
+- [NK](noise/processing/handshakepatterns/interactive/NK.py), [NN](noise/processing/handshakepatterns/interactive/NN.py), [NX](noise/processing/handshakepatterns/interactive/NX.py)
+- [XK](noise/processing/handshakepatterns/interactive/XK.py), [XN](noise/processing/handshakepatterns/interactive/XN.py), [XX](noise/processing/handshakepatterns/interactive/XX.py)
 
 Oneway:
 
-- [K](dissononce/processing/handshakepatterns/oneway/K.py), [N](dissononce/processing/handshakepatterns/oneway/N.py), [X](dissononce/processing/handshakepatterns/oneway/X.py)
+- [K](noise/processing/handshakepatterns/oneway/K.py), [N](noise/processing/handshakepatterns/oneway/N.py), [X](noise/processing/handshakepatterns/oneway/X.py)
 
 Deferred:
 
-- [I1K](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/I1K.py), 
-[I1K1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/I1K1.py), 
-[I1N](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/I1N.py),
-[I1X](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/I1X.py), 
-[I1X1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/I1X1.py), 
-[IK1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/IK1.py), 
-[IX1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/IX1.py)
-- [K1K](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/K1K.py), 
-[K1K1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/K1K1.py), 
-[K1N](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/K1N.py), 
-[K1X](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/K1X.py), 
-[K1X1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/K1X1.py), 
-[KK1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/KK1.py), 
-[KX1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/KX1.py)
-- [NK1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/NK1.py), 
-[NX1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/NX1.py)
-- [X1K](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/X1K.py), 
-[X1K1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/X1K1.py), 
-[X1N](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/X1N.py), 
-[X1X](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/X1X.py), 
-[X1X1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/X1X1.py), 
-[XK1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/XK1.py), 
-[XX1](https://github.com/tgalal/dissononce/blob/master/dissononce/processing/handshakepatterns/deferred/XX1.py)
+- [I1K](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/I1K.py),
+[I1K1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/I1K1.py),
+[I1N](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/I1N.py),
+[I1X](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/I1X.py),
+[I1X1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/I1X1.py),
+[IK1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/IK1.py),
+[IX1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/IX1.py)
+- [K1K](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/K1K.py),
+[K1K1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/K1K1.py),
+[K1N](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/K1N.py),
+[K1X](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/K1X.py),
+[K1X1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/K1X1.py),
+[KK1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/KK1.py),
+[KX1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/KX1.py)
+- [NK1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/NK1.py),
+[NX1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/NX1.py)
+- [X1K](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/X1K.py),
+[X1K1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/X1K1.py),
+[X1N](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/X1N.py),
+[X1X](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/X1X.py),
+[X1X1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/X1X1.py),
+[XK1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/XK1.py),
+[XX1](https://github.com/mgp25/noise/blob/master/noise/processing/handshakepatterns/deferred/XX1.py)
 
 ### Modifiers
 
-- [fallback](dissononce/processing/modifiers/fallback.py)
-- [psk](dissononce/processing/modifiers/psk.py)
+- [fallback](noise/processing/modifiers/fallback.py)
+- [psk](noise/processing/modifiers/psk.py)
 
 ## References
 

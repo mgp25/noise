@@ -1,18 +1,18 @@
 """
 This following demonstrates a Noise_XX_25519_AESGCM_SHA256 handshake and initial transport messages.
 """
-from dissononce.processing.impl.handshakestate import HandshakeState
-from dissononce.processing.impl.symmetricstate import SymmetricState
-from dissononce.processing.impl.cipherstate import CipherState
-from dissononce.processing.handshakepatterns.interactive.XX import XXHandshakePattern
-from dissononce.cipher.aesgcm import AESGCMCipher
-from dissononce.dh.x25519.x25519 import X25519DH
-from dissononce.hash.sha256 import SHA256Hash
-import dissononce, logging
+from noise.processing.impl.handshakestate import HandshakeState
+from noise.processing.impl.symmetricstate import SymmetricState
+from noise.processing.impl.cipherstate import CipherState
+from noise.processing.handshakepatterns.interactive.XX import XXHandshakePattern
+from noise.cipher.aesgcm import AESGCMCipher
+from noise.dh.x25519.x25519 import X25519DH
+from noise.hash.sha256 import SHA256Hash
+import noise, logging
 
 
 if __name__ == "__main__":
-    dissononce.logger.setLevel(logging.DEBUG)
+    noise.logger.setLevel(logging.DEBUG)
     # setup initiator and responder variables
     alice_s = X25519DH().generate_keypair()
     bob_s = X25519DH().generate_keypair()
